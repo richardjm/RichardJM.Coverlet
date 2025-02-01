@@ -6,18 +6,11 @@
     <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management -->
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-  
-    <TF_BUILD>true</TF_BUILD>
   </PropertyGroup>
 
-  <!-- https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#continuousintegrationbuild -->
-  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+  <!-- Should have this locally to get the pdb into output for debugging -->
+  <PropertyGroup>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <CopyDebugSymbolFilesFromPackages>true</CopyDebugSymbolFilesFromPackages>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
-  <ItemGroup>
-    <SourceRoot Include="$(MSBuildThisFileDirectory)" />
-  </ItemGroup>
 </Project>
