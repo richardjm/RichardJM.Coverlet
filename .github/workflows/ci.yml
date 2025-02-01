@@ -31,6 +31,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: build
+    defaults:
+      run:
+        # To ensure the path doesn't match the build path
+        working-directory: ./test-subfolder
 
     steps:
     # Have the source files from the repo for instrumentation
