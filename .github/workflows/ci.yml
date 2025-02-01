@@ -14,18 +14,17 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Build
-      run: dotnet build --configuration Release
+    - run: dotnet build --configuration Release
 
     - name: Upload test artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-artifacts
         path: artifacts/bin/RichardJM.Coverlet.Tests
@@ -36,33 +35,31 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Download test artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: build-artifacts
         path: artifacts/bin/RichardJM.Coverlet.Tests
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - run: dotnet restore
 
-    - name: Run tests with coverage
-      run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults
+    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults
 
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results
         path: artifacts/TestResults
 
     - name: Report code coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         files: artifacts/TestResults/**/coverage.cobertura.xml
         fail_ci_if_error: true
