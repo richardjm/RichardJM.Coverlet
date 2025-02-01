@@ -55,13 +55,11 @@ jobs:
       with:
         global-json-file: test-subfolder/global.json
 
-    - run: ls -lR
-
     # In order to get coverlet available to run we need to install it via restore
     - run: dotnet restore
 
     # No build required - this is the key requirement so I test the compiled binaries from the previous job
-    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults
+    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" /p:DeterministicSourcePaths=true --results-directory artifacts/TestResults
     
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
