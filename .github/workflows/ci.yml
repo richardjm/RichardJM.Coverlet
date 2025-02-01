@@ -21,6 +21,7 @@ jobs:
 
     - run: dotnet build --configuration Release
 
+    # Only preserve the test binaries, no dotnet publish for each framework
     - name: Upload test artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -32,9 +33,11 @@ jobs:
     needs: build
 
     steps:
+    # Have the source files from the repo for instrumentation
     - name: Checkout code
       uses: actions/checkout@v4
 
+    # Only the binaries for the tests are needed
     - name: Download test artifacts
       uses: actions/download-artifact@v4
       with:
@@ -44,18 +47,20 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
+    # In order to get coverlet available to run we need to install it via restore
     - run: dotnet restore
 
+    # No build required - this is the key requirement so I test the compiled binaries from the previous job
     - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults
-
+    
+    - name: ReportGenerator
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
+      with:
+        reports: artifacts/TestResults/**/coverage.cobertura.xml
+        targetdir: artifacts/TestResults
+  
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
         name: test-results
         path: artifacts/TestResults
-
-    - name: Report code coverage
-      uses: codecov/codecov-action@v5
-      with:
-        files: artifacts/TestResults/**/coverage.cobertura.xml
-        fail_ci_if_error: true

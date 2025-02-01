@@ -2,11 +2,11 @@
   <PropertyGroup>
     <!-- https://learn.microsoft.com/en-us/dotnet/core/sdk/artifacts-output -->
     <UseArtifactsOutput>true</UseArtifactsOutput>
+    <!-- <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild> -->
   </PropertyGroup>
 
   <!-- Should have this locally to get the pdb into output for debugging -->
   <PropertyGroup>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <CopyDebugSymbolFilesFromPackages>true</CopyDebugSymbolFilesFromPackages>
   </PropertyGroup>
 </Project>
