@@ -15,6 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichardJM.Coverlet", "src\R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichardJM.Coverlet.Tests", "test\RichardJM.Coverlet.Tests\RichardJM.Coverlet.Tests.csproj", "{F48C322C-B2BE-4A7B-85CB-209BF6D74538}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".gitflows", ".gitflows", "{AFE0C102-FAB5-440B-9421-55830325B979}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{76E72646-2A46-4823-B8BB-8A5F733D504E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitflows\workflows\ci.yml = .gitflows\workflows\ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,5 +39,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFE0C102-FAB5-440B-9421-55830325B979} = {BF16B68A-1452-4C67-BEEA-50A47E8C7B77}
+		{76E72646-2A46-4823-B8BB-8A5F733D504E} = {AFE0C102-FAB5-440B-9421-55830325B979}
 	EndGlobalSection
 EndGlobal
