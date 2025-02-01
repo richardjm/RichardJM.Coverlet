@@ -34,12 +34,14 @@ jobs:
     defaults:
       run:
         # To ensure the path doesn't match the build path
-        working-directory: ./test-subfolder
+        working-directory: test-subfolder
 
     steps:
     # Have the source files from the repo for instrumentation
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        path: test-subfolder
 
     # Only the binaries for the tests are needed
     - name: Download test artifacts
