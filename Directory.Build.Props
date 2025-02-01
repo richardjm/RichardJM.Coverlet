@@ -2,10 +2,6 @@
   <PropertyGroup>
     <!-- https://learn.microsoft.com/en-us/dotnet/core/sdk/artifacts-output -->
     <UseArtifactsOutput>true</UseArtifactsOutput>
-
-    <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management -->
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
 
   <!-- Should have this locally to get the pdb into output for debugging -->
