@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{BF16B68A-1452-4C67-BEEA-50A47E8C7B77}"
+	ProjectSection(SolutionItems) = preProject
+		.runsettings = .runsettings
+		Directory.Build.Props = Directory.Build.Props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichardJM.Coverlet", "src\RichardJM.Coverlet\RichardJM.Coverlet.csproj", "{02243C24-3C58-408E-8ECD-B03F404F9858}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02243C24-3C58-408E-8ECD-B03F404F9858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02243C24-3C58-408E-8ECD-B03F404F9858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02243C24-3C58-408E-8ECD-B03F404F9858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02243C24-3C58-408E-8ECD-B03F404F9858}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

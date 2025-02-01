@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <!-- https://learn.microsoft.com/en-us/dotnet/core/sdk/artifacts-output -->
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+
+    <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  
+    <TF_BUILD>true</TF_BUILD>
+  </PropertyGroup>
+
+  <!-- https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#continuousintegrationbuild -->
+  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <SourceRoot Include="$(MSBuildThisFileDirectory)" />
+  </ItemGroup>
+</Project>
