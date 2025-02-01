@@ -3,6 +3,7 @@
     <!-- https://learn.microsoft.com/en-us/dotnet/core/sdk/artifacts-output -->
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <!-- <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild> -->
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
   </PropertyGroup>
 
   <!-- Should have this locally to get the pdb into output for debugging -->
