@@ -53,7 +53,7 @@ jobs:
     - run: dotnet restore
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults
+    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults --diag:"artifacts/TestResults/log/test.diag.log;tracelevel=verbose"
     
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
@@ -99,7 +99,7 @@ jobs:
     - run: dotnet restore
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults --diag:"artifacts/log/test.diag.log;tracelevel=verbose"
+    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults --diag:"artifacts/TestResults/log/test.diag.log;tracelevel=verbose"
     
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
