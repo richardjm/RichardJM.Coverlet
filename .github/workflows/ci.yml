@@ -67,7 +67,7 @@ jobs:
         name: test-results-1
         path: artifacts/TestResults
 
-  test:
+  test2:
     name: Test on sub folder path
     runs-on: ubuntu-latest
     needs: build
