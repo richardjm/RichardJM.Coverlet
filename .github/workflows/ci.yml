@@ -58,7 +58,7 @@ jobs:
       run: |
         chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
         cd test/RichardJM.Coverlet.Tests
-        dotnet-coverage collect --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+        dotnet-coverage collect --settings ../collect.settings --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
  
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
@@ -113,7 +113,7 @@ jobs:
       run: |
         chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
         cd test/RichardJM.Coverlet.Tests
-        dotnet-coverage collect --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+        dotnet-coverage collect --settings ../collect.settings --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
  
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
