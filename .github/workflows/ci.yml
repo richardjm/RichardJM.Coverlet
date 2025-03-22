@@ -21,7 +21,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
-    - run: dotnet build --configuration Release
+    - run: dotnet build --configuration Release /p:MsCodeCoverageInstrumentation="true"
 
     # Only preserve the test binaries, no dotnet publish for each framework
     - name: Upload test artifacts
@@ -70,7 +70,7 @@ jobs:
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
-        name: code-coverage-report-2
+        name: code-coverage-report
         path: ${{ github.workspace }}/report.cobertura.xml
         overwrite: true
 
