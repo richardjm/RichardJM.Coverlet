@@ -51,6 +51,7 @@ jobs:
       uses: actions/setup-dotnet@v4
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
+    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
     - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output artifacts/TestResults 
     
     - name: ReportGenerator
@@ -93,7 +94,9 @@ jobs:
       with:
         global-json-file: test-subfolder/global.json
 
+
     # No build required - this is the key requirement so I test the compiled binaries from the build job
+    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
     - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output artifacts/TestResults 
      
     - name: ReportGenerator
