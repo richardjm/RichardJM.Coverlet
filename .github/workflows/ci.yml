@@ -21,7 +21,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
-    - run: dotnet build --configuration Release /p:MsCodeCoverageInstrumentation="true"
+    - run: dotnet build -c Release
 
     # Only preserve the test binaries, no dotnet publish for each framework
     - name: Upload test artifacts
@@ -51,6 +51,9 @@ jobs:
       uses: actions/setup-dotnet@v4
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
+    - name: Install dotnet-coverage
+      run: dotnet tool install -g dotnet-coverage
+
     - name: Test
       run: |
         chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
@@ -102,7 +105,10 @@ jobs:
         global-json-file: test-subfolder/global.json
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - name: Test
+    - name: Install dotnet-coverage
+      run: dotnet tool install -g dotnet-coverage
+
+s    - name: Test
       run: |
         chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
         artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output $GITHUB_WORKSPACE/report.cobertura.xml --coverage-output-format cobertura
