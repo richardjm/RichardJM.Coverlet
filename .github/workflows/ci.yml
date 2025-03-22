@@ -51,13 +51,16 @@ jobs:
       uses: actions/setup-dotnet@v4
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
-    - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output $(pwd)/artifacts/TestResults --coverage-output-format cobertura
-    
+    - run: cd test/RichardJM.Coverlet.Tests
+    - name: Install dotnet-coverage
+      run: dotnet tool install -g dotnet-coverage
+    - name: Test
+      run: dotnet-coverage collect --output $(pwd)/artifacts/TestResults/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+ 
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
       with:
-        reports: artifacts/TestResults/**/coverage.cobertura.xml
+        reports: artifacts/TestResults/**/report.cobertura.xml
         targetdir: artifacts/TestResults
   
     - name: Upload test results
@@ -96,13 +99,16 @@ jobs:
 
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
-    - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output $(pwd)/artifacts/TestResults --coverage-output-format cobertura
-     
+    - run: cd test/RichardJM.Coverlet.Tests
+    - name: Install dotnet-coverage
+      run: dotnet tool install -g dotnet-coverage
+    - name: Test
+      run: dotnet-coverage collect --output $(pwd)/artifacts/TestResults/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
       with:
-        reports: test-subfolder/artifacts/TestResults/**/coverage.cobertura.xml
+        reports: test-subfolder/artifacts/TestResults/**/report.cobertura.xml
         targetdir: test-subfolder/artifacts/TestResults
   
     - name: Upload test results
