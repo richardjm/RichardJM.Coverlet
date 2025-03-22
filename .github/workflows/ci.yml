@@ -1,6 +1,7 @@
 name: Build and Test
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -20,7 +21,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
-    - run: dotnet build --configuration Release
+    - run: dotnet build -c Release
 
     # Only preserve the test binaries, no dotnet publish for each framework
     - name: Upload test artifacts
@@ -49,23 +50,32 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
-    # In order to get coverlet available to run we need to install it via restore
-    - run: dotnet restore
-
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults --diag:"artifacts/TestResults/log/test.diag.log;tracelevel=verbose"
-    
+    - name: Install dotnet-coverage
+      run: dotnet tool install -g dotnet-coverage
+
+    - name: Test
+      run: |
+        chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
+        cd test/RichardJM.Coverlet.Tests
+        dotnet-coverage collect --settings ../collect.settings --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+ 
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
       with:
-        reports: artifacts/TestResults/**/coverage.cobertura.xml
-        targetdir: artifacts/TestResults
-  
+        reports: '${{ github.workspace }}/report.cobertura.xml'
+        targetdir: '${{ github.workspace }}/coveragereport'
+        reporttypes: 'MarkdownSummaryGithub'
+
+    - name: Upload coverage into summary
+      run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
-        name: test-results-1
-        path: artifacts/TestResults
+        name: code-coverage-report
+        path: ${{ github.workspace }}/report.cobertura.xml
+        overwrite: true
 
   test2:
     name: Test on sub folder path
@@ -95,20 +105,29 @@ jobs:
       with:
         global-json-file: test-subfolder/global.json
 
-    # In order to get coverlet available to run we need to install it via restore
-    - run: dotnet restore
-
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory artifacts/TestResults --diag:"artifacts/TestResults/log/test.diag.log;tracelevel=verbose"
-    
+    - name: Install dotnet-coverage
+      run: dotnet tool install -g dotnet-coverage
+
+    - name: Test
+      run: |
+        chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
+        cd test/RichardJM.Coverlet.Tests
+        dotnet-coverage collect --settings ../collect.settings --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+ 
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
       with:
-        reports: test-subfolder/artifacts/TestResults/**/coverage.cobertura.xml
-        targetdir: test-subfolder/artifacts/TestResults
-  
+        reports: '${{ github.workspace }}/report.cobertura.xml'
+        targetdir: '${{ github.workspace }}/coveragereport'
+        reporttypes: 'MarkdownSummaryGithub'
+
+    - name: Upload coverage into summary
+      run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
-        name: test-results-2
-        path: test-subfolder/artifacts/TestResults
+        name: code-coverage-report-2
+        path: ${{ github.workspace }}/report.cobertura.xml
+        overwrite: true
