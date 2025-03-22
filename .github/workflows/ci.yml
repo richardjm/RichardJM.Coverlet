@@ -52,7 +52,7 @@ jobs:
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
     - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
-    - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output artifacts/TestResults 
+    - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output $(pwd)/artifacts/TestResults 
     
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
@@ -97,7 +97,7 @@ jobs:
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
     - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
-    - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output artifacts/TestResults 
+    - run: artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output $(pwd)/artifacts/TestResults 
      
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
