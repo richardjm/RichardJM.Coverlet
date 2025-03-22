@@ -51,13 +51,13 @@ jobs:
       uses: actions/setup-dotnet@v4
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
     - name: Install dotnet-coverage
       run: dotnet tool install -g dotnet-coverage
+
     - name: Test
       run: |
-        cd test/RichardJM.Coverlet.Tests
-        dotnet-coverage collect --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+        chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
+        artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output $GITHUB_WORKSPACE/report.cobertura.xml --coverage-output-format cobertura
  
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
@@ -106,14 +106,14 @@ jobs:
 
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
     - name: Install dotnet-coverage
       run: dotnet tool install -g dotnet-coverage
+      
     - name: Test
       run: |
-        cd test/RichardJM.Coverlet.Tests
-        dotnet-coverage collect --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
-    
+        chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
+        artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests --coverage --coverage-output $GITHUB_WORKSPACE/report.cobertura.xml --coverage-output-format cobertura
+ 
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
       with:
