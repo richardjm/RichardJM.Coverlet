@@ -51,6 +51,7 @@ jobs:
       uses: actions/setup-dotnet@v4
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
+    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
     - name: Install dotnet-coverage
       run: dotnet tool install -g dotnet-coverage
     - name: Test
@@ -105,7 +106,7 @@ jobs:
 
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: cd test/RichardJM.Coverlet.Tests
+    - run: chmod +x artifacts/bin/RichardJM.Coverlet.Tests/release/RichardJM.Coverlet.Tests
     - name: Install dotnet-coverage
       run: dotnet tool install -g dotnet-coverage
     - name: Test
