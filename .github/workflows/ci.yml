@@ -51,23 +51,29 @@ jobs:
       uses: actions/setup-dotnet@v4
 
     # No build required - this is the key requirement so I test the compiled binaries from the build job
-    - run: cd test/RichardJM.Coverlet.Tests
     - name: Install dotnet-coverage
       run: dotnet tool install -g dotnet-coverage
     - name: Test
-      run: dotnet-coverage collect --output $(pwd)/artifacts/TestResults/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+      run: |
+        cd test/RichardJM.Coverlet.Tests
+        dotnet-coverage collect --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
  
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
       with:
-        reports: artifacts/TestResults/**/report.cobertura.xml
-        targetdir: artifacts/TestResults
-  
+        reports: '${{ github.workspace }}/report.cobertura.xml'
+        targetdir: '${{ github.workspace }}/coveragereport'
+        reporttypes: 'MarkdownSummaryGithub'
+
+    - name: Upload coverage into summary
+      run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
-        name: test-results-1
-        path: artifacts/TestResults
+        name: code-coverage-report-2
+        path: ${{ github.workspace }}/report.cobertura.xml
+        overwrite: true
 
   test2:
     name: Test on sub folder path
@@ -103,16 +109,23 @@ jobs:
     - name: Install dotnet-coverage
       run: dotnet tool install -g dotnet-coverage
     - name: Test
-      run: dotnet-coverage collect --output $(pwd)/artifacts/TestResults/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
-
+      run: |
+        cd test/RichardJM.Coverlet.Tests
+        dotnet-coverage collect --output $GITHUB_WORKSPACE/report.cobertura.xml --output-format cobertura "dotnet run --no-build -c Release"
+    
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
       with:
-        reports: test-subfolder/artifacts/TestResults/**/report.cobertura.xml
-        targetdir: test-subfolder/artifacts/TestResults
-  
+        reports: '${{ github.workspace }}/report.cobertura.xml'
+        targetdir: '${{ github.workspace }}/coveragereport'
+        reporttypes: 'MarkdownSummaryGithub'
+
+    - name: Upload coverage into summary
+      run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
-        name: test-results-2
-        path: test-subfolder/artifacts/TestResults
+        name: code-coverage-report-2
+        path: ${{ github.workspace }}/report.cobertura.xml
+        overwrite: true
